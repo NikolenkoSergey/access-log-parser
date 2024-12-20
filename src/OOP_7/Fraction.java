@@ -3,7 +3,6 @@ package OOP_7;
 public class Fraction {
     private int numerator, denominator;
 
-
     public Fraction(int numerator, int denominator) {
         if (denominator <= 0)
             throw new IllegalArgumentException("Знаменатель не может быть отрицательным или равен 0 ");

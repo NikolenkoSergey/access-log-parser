@@ -56,7 +56,6 @@ public class Main {
         //-------------------------------
 
 //        // Задание 7.1 Дробь
-
         Fraction f1 = new Fraction(1, 3);
         Fraction f2 = new Fraction(2, 5);
         Fraction f3 = new Fraction(7, 8);
