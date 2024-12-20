@@ -1,5 +1,6 @@
 import OOP_6.*;
 import OOP_7.Fraction;
+import OOP_7.Square;
 
 import java.util.Arrays;
 
@@ -56,12 +57,19 @@ public class Main {
         //-------------------------------
 
 //        // Задание 7.1 Дробь
-        Fraction f1 = new Fraction(1, 3);
-        Fraction f2 = new Fraction(2, 5);
-        Fraction f3 = new Fraction(7, 8);
+//        Fraction f1 = new Fraction(1, 3);
+//        Fraction f2 = new Fraction(2, 5);
+//        Fraction f3 = new Fraction(7, 8);
+//
+//        System.out.println(f1.sum(f2).sum(f3).minus(5));
+        //-------------------------------
 
-        System.out.println(f1.sum(f2).sum(f3).minus(5));
-
+//        // Задание 7.2 Квадрат
+        Square s = new Square(10, 2, 4);
+        System.out.println(s);
+        s.setSideLength(20);
+        s.setPoint(5, 7);
+        System.out.println(s);
     }
 
 
