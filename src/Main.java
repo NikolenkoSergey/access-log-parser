@@ -77,6 +77,7 @@ public class Main {
         System.out.println(s);
         s.setPoint(p);
         System.out.println(s);
+        System.out.println(s.getPoint());
         //-------------------------------
 
 //        // Задание 7.3 Студент

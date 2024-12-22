@@ -5,14 +5,20 @@ import OOP_6.Point;
 public class Square {
 
     private int sideLength;
-    public Point point;
+    private Point point;
 
     public Square(int sideLength, int x, int y) {
-        setSideLength(sideLength);
+        privateSetSideLength(sideLength);
         this.point = new Point(x, y);
     }
 
     public void setSideLength(int sideLength) {
+        privateSetSideLength(sideLength);
+    }
+    public int getSideLength() {
+        return sideLength;
+    }
+    private void privateSetSideLength(int sideLength) {
         if (sideLength <=0) throw new IllegalArgumentException("Сторона квадрата должна быть положительной");
         this.sideLength = sideLength;
     }
@@ -23,6 +29,10 @@ public class Square {
 
     public void setPoint(int x, int y) {
         this.point = new Point(x,y);
+    }
+
+    public Point getPoint() {
+        return point;
     }
 
     @Override
