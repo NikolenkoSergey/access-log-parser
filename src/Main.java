@@ -69,37 +69,38 @@ public class Main {
         //-------------------------------
 
         // Задание 7.2 Квадрат
-        Square s = new Square(10, 2, 4);
-        Point p = new Point(30,40);
-        System.out.println(s);
-        s.setSideLength(20);
-        s.setPoint(5, 7);
-        System.out.println(s);
-        s.setPoint(p);
-        System.out.println(s);
-        System.out.println(s.getPoint());
+//        Square s = new Square(10, 2, 4);
+//        Point p = new Point(30,40);
+//        System.out.println(s);
+//        s.setSideLength(20);
+//        s.setPoint(5, 7);
+//        System.out.println(s);
+//        s.setPoint(p);
+//        System.out.println(s);
+//        System.out.println(s.getPoint());
         //-------------------------------
 
 //        // Задание 7.3 Студент
-//        int[] g = new int[5];
-//
-//        Student s = new Student("Alex", g);
-//        System.out.println(s);
-////        System.out.println(Arrays.toString(s.getGrades()));
-//
-//        g[0] = 3;
-//        g[1] = 2;
-//        g[0] = 5;
-//        System.out.println("------------");
-//        System.out.println(s);
-//        System.out.println(Arrays.toString(s.getGrades()));
-//
-//        int[] g1 = new int[]{2,2,2,2};
-//        s.setGrades(g1);
-//        System.out.println("------------");
-//        System.out.println(s);
-//        System.out.println(Arrays.toString(s.getGrades()));
-//
+        int[] g = new int[]{4,4,2,0,2};
+
+        Student s = new Student("Alex", g);
+        System.out.println(s);
+
+        g[0] = 3;
+        g[1] = 3;
+        g[0] = 3;
+        System.out.println("------------");
+        System.out.println(s);
+        System.out.println(Arrays.toString(s.getGrades()));
+
+        s.setGrades(5);
+        s.setGrades(4);
+        s.setGrades(3);
+        s.setGrades(5);
+        System.out.println("------------");
+        System.out.println(s);
+        System.out.println(Arrays.toString(s.getGrades()));
+
 
     }
 
