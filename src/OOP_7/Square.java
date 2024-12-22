@@ -4,7 +4,7 @@ import OOP_6.Point;
 
 public class Square {
 
-    public int x, y, sideLength;
+    private int sideLength;
     public Point point;
 
     public Square(int sideLength, int x, int y) {
@@ -24,6 +24,7 @@ public class Square {
     public void setPoint(int x, int y) {
         this.point = new Point(x,y);
     }
+
     @Override
     public String toString() {
         return "Квадрат в точке "+ point +" со стороной " + sideLength;

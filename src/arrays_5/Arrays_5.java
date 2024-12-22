@@ -81,13 +81,20 @@ public class Arrays_5 {
     }
 
     public static void reverse(int[] arr) {
+        for (int i = 0; i < arr.length/2; i++) {
+            int temp = arr[i];
+            arr[i] = arr[arr.length - 1 - i];
+            arr[arr.length - 1 - i] = temp;
+        }
+    }
+
+    public static void reverse1(int[] arr){
         int[] arr2 = new int[arr.length];
         for (int i = 0; i < arr.length; i++) {
             arr2[arr2.length - 1 - i] = arr[i];
         }
-        arr = arr2;
+        arr=arr2;
     }
-
 
     public static boolean palindrom(int[] arr) {
         for (int i = 0; i < arr.length; i++)

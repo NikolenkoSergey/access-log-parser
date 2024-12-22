@@ -1,8 +1,12 @@
 import OOP_6.*;
 import OOP_7.Fraction;
 import OOP_7.Square;
+import OOP_7.Student;
+import arrays_5.Arrays_5;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -64,12 +68,38 @@ public class Main {
 //        System.out.println(f1.sum(f2).sum(f3).minus(5));
         //-------------------------------
 
-//        // Задание 7.2 Квадрат
+        // Задание 7.2 Квадрат
         Square s = new Square(10, 2, 4);
+        Point p = new Point(30,40);
         System.out.println(s);
         s.setSideLength(20);
         s.setPoint(5, 7);
         System.out.println(s);
+        s.setPoint(p);
+        System.out.println(s);
+        //-------------------------------
+
+//        // Задание 7.3 Студент
+//        int[] g = new int[5];
+//
+//        Student s = new Student("Alex", g);
+//        System.out.println(s);
+////        System.out.println(Arrays.toString(s.getGrades()));
+//
+//        g[0] = 3;
+//        g[1] = 2;
+//        g[0] = 5;
+//        System.out.println("------------");
+//        System.out.println(s);
+//        System.out.println(Arrays.toString(s.getGrades()));
+//
+//        int[] g1 = new int[]{2,2,2,2};
+//        s.setGrades(g1);
+//        System.out.println("------------");
+//        System.out.println(s);
+//        System.out.println(Arrays.toString(s.getGrades()));
+//
+
     }
 
 
