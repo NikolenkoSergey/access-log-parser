@@ -1,12 +1,5 @@
 import OOP_6.*;
-import OOP_7.Fraction;
-import OOP_7.Square;
-import OOP_7.Student;
-import arrays_5.Arrays_5;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import OOP_7.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -81,26 +74,47 @@ public class Main {
         //-------------------------------
 
 //        // Задание 7.3 Студент
-        int[] g = new int[]{4,4,2,0,2};
+//        int[] g = new int[]{4,4,2,0,2};
+//
+//        Student s = new Student("Alex", g);
+//        System.out.println(s);
+//
+//        g[0] = 3;
+//        g[1] = 3;
+//        g[0] = 3;
+//        System.out.println("------------");
+//        System.out.println(s);
+//        System.out.println(Arrays.toString(s.getGrades()));
+//
+//        s.setGrades(5);
+//        s.setGrades(4);
+//        s.setGrades(3);
+//        s.setGrades(5);
+//        System.out.println("------------");
+//        System.out.println(s);
+//        System.out.println(Arrays.toString(s.getGrades()));
+        //-------------------------------
 
-        Student s = new Student("Alex", g);
-        System.out.println(s);
-
-        g[0] = 3;
-        g[1] = 3;
-        g[0] = 3;
-        System.out.println("------------");
-        System.out.println(s);
-        System.out.println(Arrays.toString(s.getGrades()));
-
-        s.setGrades(5);
-        s.setGrades(4);
-        s.setGrades(3);
-        s.setGrades(5);
-        System.out.println("------------");
-        System.out.println(s);
-        System.out.println(Arrays.toString(s.getGrades()));
-
+//        // Задание 7.4 Сотрудник и отделы
+//        Department home = new Department("Home", null);
+//        Employee sergey = new Employee("Sergey", home);
+//        Employee fatima = new Employee("Fatima", home);
+//        home.setBoss(fatima);
+//
+//        Employee artem = new Employee("Artem", home);
+//        Department home1 = new Department("Home1", null);
+//        Employee roman = new Employee("Roman", home1);
+//
+////        artem.setDepartment(home1);
+//        home.setBoss(artem);
+//        home1.setBoss(roman);
+//        artem.setDepartment(home1);
+//
+//        System.out.println(sergey);
+//        System.out.println(fatima);
+//        System.out.println(artem);
+//        System.out.println(home);
+//        System.out.println(home1);
 
     }
 
