@@ -1,6 +1,6 @@
 package OOP_7;
 
-public class Fraction {
+public class Fraction extends Number{
     private int numerator, denominator;
 
     public Fraction(int numerator, int denominator) {
@@ -10,6 +10,7 @@ public class Fraction {
         this.denominator = denominator;
         simplify();
     }
+
 
     // Сложение дробей
     public Fraction sum(Fraction fraction) {
@@ -67,5 +68,25 @@ public class Fraction {
     @Override
     public String toString() {
         return "Fraction: " + numerator + "/" + denominator;
+    }
+
+    @Override
+    public int intValue() {
+        return numerator / denominator;
+    }
+
+    @Override
+    public long longValue() {
+        return numerator / denominator;
+    }
+
+    @Override
+    public float floatValue() {
+        return (float) numerator / denominator;
+    }
+
+    @Override
+    public double doubleValue() {
+        return (double) numerator / denominator;
     }
 }
