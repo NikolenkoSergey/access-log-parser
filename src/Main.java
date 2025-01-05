@@ -5,6 +5,9 @@ import OOP_8.GeometricFigures.AreaCalculator;
 import OOP_8.GeometricFigures.Circle;
 import OOP_8.GeometricFigures.Rectangle;
 import OOP_8.GeometricFigures.Square_figure;
+import OOP_8.Points.OneDimensionalPoint;
+import OOP_8.Points.TwoDimensionalPoint;
+import OOP_8.Student.Student;
 
 public class Main {
     public static void main(String[] args) {
@@ -146,17 +149,17 @@ public class Main {
         //-------------------------------
 
 //        // Задание 8.3 Measurable интерфейсы
-        Point p1 = new Point(1, 1);
-        Point p2 = new Point(2, 2);
-        Point p3 = new Point(3, 3);
-        Point[] arrp = new Point[]{p1, p2, p3};
-        Line l = new Line(p1,p2);
-        PolyLine p5 = new PolyLine(arrp);
-        ClosedPolyLine p4 = new ClosedPolyLine(arrp);
-        System.out.println(lengthPolyLines(p4));
-        System.out.println(lengthPolyLines(p5));
-        System.out.println(lengthPolyLines(l));
-        System.out.println(l.getLength());
+//        Point p1 = new Point(1, 1);
+//        Point p2 = new Point(2, 2);
+//        Point p3 = new Point(3, 3);
+//        Point[] arrp = new Point[]{p1, p2, p3};
+//        Line l = new Line(p1,p2);
+//        PolyLine p5 = new PolyLine(arrp);
+//        ClosedPolyLine p4 = new ClosedPolyLine(arrp);
+//        System.out.println(lengthPolyLines(p4));
+//        System.out.println(lengthPolyLines(p5));
+//        System.out.println(lengthPolyLines(l));
+//        System.out.println(l.getLength());
         //-------------------------------
 
 //        // Задание 8.4 Длина строки - задание необязательное
@@ -254,6 +257,15 @@ public class Main {
 //
 //        System.out.println(square.getArea() + square1.getArea()+square3.getArea()+circle.getArea()+circle1.getArea());
 //        System.out.println("Сума полощадей фигур " + AreaCalculator.sumAllAreas(square,square1,square3,circle,circle1));
+//        //-------------------------------
+//
+////        // Задание 8.12 Студент с правилом
+        Student s = new Student("Sasha", grade-> grade >= 2 && grade <= 5);
+        Student s1 = new Student("Sasha", grade-> grade >= 1 && grade <= 1000000 && grade%2==0);
+        s1.addGrade(1000002);
+        s1.addGrade(2);
+        s1.addGrade(1000000);
+        System.out.println(s1);
 
     }
 
