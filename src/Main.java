@@ -1,4 +1,5 @@
 import OOP_6.*;
+import OOP_7.Square;
 import OOP_8.*;
 import OOP_8.GeometricFigures.AreaCalculator;
 import OOP_8.GeometricFigures.Circle;
@@ -130,7 +131,7 @@ public class Main {
 //        System.out.println(p);
         //-------------------------------
 
-//        // Задание 8.2 ClosedPolyLine
+        // Задание 8.2 ClosedPolyLine
 //        Point p1 = new Point(1, 1);
 //        Point p2 = new Point(2, 2);
 //        Point p3 = new Point(3, 3);
@@ -145,17 +146,17 @@ public class Main {
         //-------------------------------
 
 //        // Задание 8.3 Measurable интерфейсы
-//        Point p1 = new Point(1, 1);
-//        Point p2 = new Point(2, 2);
-//        Point p3 = new Point(3, 3);
-//        Point[] arrp = new Point[]{p1, p2, p3};
-//        Line l = new Line(p1,p2);
-//        PolyLine p5 = new PolyLine(arrp);
-//        ClosedPolyLine p4 = new ClosedPolyLine(arrp);
-//        System.out.println(lengthPolyLines(p4));
-//        System.out.println(lengthPolyLines(p5));
-//        System.out.println(lengthPolyLines(l));
-//        System.out.println(l.getLength());
+        Point p1 = new Point(1, 1);
+        Point p2 = new Point(2, 2);
+        Point p3 = new Point(3, 3);
+        Point[] arrp = new Point[]{p1, p2, p3};
+        Line l = new Line(p1,p2);
+        PolyLine p5 = new PolyLine(arrp);
+        ClosedPolyLine p4 = new ClosedPolyLine(arrp);
+        System.out.println(lengthPolyLines(p4));
+        System.out.println(lengthPolyLines(p5));
+        System.out.println(lengthPolyLines(l));
+        System.out.println(l.getLength());
         //-------------------------------
 
 //        // Задание 8.4 Длина строки - задание необязательное
@@ -257,12 +258,12 @@ public class Main {
     }
 
 
-    // Задание 8.4 Длина строки - задание необязательное
+    // Задание 8.3 Measurable интерфейсы. Измерение длины
     public static double lengthPolyLines(Measurable object) {
         return object.getLength();
     }
 
-
+    // Задание 6.2 линия
     public static void sumLengthLine(Line... line) {
         double sum = 0;
         for (Line value : line) {

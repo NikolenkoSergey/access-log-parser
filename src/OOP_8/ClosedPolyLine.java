@@ -12,15 +12,10 @@ public class ClosedPolyLine extends PolyLine {
 
     @Override
     public double getLength() {
-        double sum = 0, len1, len2;
-        for (int i = 0; i < arrPoint.length - 1; i++) {
-            len1 = arrPoint[i].getX() - arrPoint[i + 1].getX();
-            len2 = arrPoint[i].getY() - arrPoint[i + 1].getY();
-            sum+= Math.sqrt(len1 * len1 + len2 * len2);
-        }
+        double sum = super.getLength();
+        double len1, len2;
         len1 = arrPoint[arrPoint.length - 1].getX() - arrPoint[0].getX();
         len2 = arrPoint[arrPoint.length - 1].getY() - arrPoint[0].getY();
         return sum + Math.sqrt(len1 * len1 + len2 * len2);
     }
-
 }
