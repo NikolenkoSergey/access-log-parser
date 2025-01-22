@@ -1,10 +1,15 @@
 package ru.courses.main;
-import ru.courses.OOP_6.*;
-import ru.courses.OOP_8.*;
+import ru.courses.OOP_8.Measurable;
+import ru.courses.OOP_9.Fraction;
+import ru.courses.OOP_9.Line;
+import ru.courses.OOP_9.Point;
 import ru.courses.OOP_8.Student.Student;
+import ru.courses.OOP_9.PolyLine;
+
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         // Задание 6.1 точка
 //        Point p1 = new Point(1, 3);
 //        Point p2 = new Point(1, 3);
@@ -254,35 +259,109 @@ public class Main {
 //        //-------------------------------
 //
 ////        // Задание 8.12 Студент с правилом
-        Student s = new Student("Sasha", grade-> grade >= 2 && grade <= 5);
-        Student s1 = new Student("Sasha", grade-> grade >= 1 && grade <= 1000000 && grade%2==0);
-        s1.addGrade(1000002);
-        s1.addGrade(2);
-        s1.addGrade(1000000);
-        System.out.println(s1);
-
-//        MyPow.mypow;
+//        Student s = new Student("Sasha", grade-> grade >= 2 && grade <= 5);
+//        Student s1 = new Student("Sasha", grade-> grade >= 1 && grade <= 1000000 && grade%2==0);
+//        s1.addGrade(1000002);
+//        s1.addGrade(2);
+//        s1.addGrade(1000000);
+//        System.out.println(s1);
+//        //-------------------------------
+//
+////        // Задание 8.2.3 Возведение в степень
+//        MyPow.mypow();
+//        //-------------------------------
+//
+////        // Задание 8.2.4 Простые имена
+//        Point p1 = new Point(3,4);
+//        java.awt.Point p2 = new java.awt.Point(5,6);
+//        System.out.println(p1);
+//        System.out.println(p2);
+//        //-------------------------------
+//
+////        // Задание 9.1.2 Сравнение точек
+//        Point p1 = new Point(3,3 );
+//        Point p2 = new Point(3,3 );
+//        System.out.println(p1==p2);
+//        System.out.println(p1.equals(p2));
+//        System.out.println("-----------------");
+//        Point p3 = p1.clone();
+//        System.out.println(p1==p3);
+//        System.out.println(p1.equals(p3));
+//        System.out.println(p3);
+//        //-------------------------------
+//
+//        // Задание 9.1.3 Сравнение Линий
+//        Point p1 = new Point(3,3 );
+//        Point p2 = new Point(3,2 );
+//        Point p3 = new Point(3,3 );
+//        Line l1 = new Line(p1,p2);
+//        Line l2 = new Line(p1,p2);
+//        Line l3 = new Line(p1,p3);
+//        System.out.println(l1==l2);
+//        System.out.println(l1.equals(l2));
+//        System.out.println("-----------------3");
+//        System.out.println(l1==l3);
+//        System.out.println(l1.equals(l3));
+//        System.out.println("-----------------4");
+//        Line l4 = (Line) l3.clone();
+//        System.out.println(l3==l4);
+//        System.out.println(l3.equals(l4));
+//
+//        System.out.println("-----------------4Point");
+//        p1.setX(99);
+//        System.out.println(l3==l4);
+//        System.out.println(l3.equals(l4));
+//
+//        System.out.println("-----------------4+++");
+//        l3.setStart(p2);
+//        System.out.println(l3==l4);
+//        System.out.println(l3.equals(l4));
+//        //-------------------------------
+//
+//        // Задание 9.1.4 Сравнение ломаных Линий
+//        Point p1 = new Point(3,1 );
+//        Point p2 = new Point(3,2 );
+//        Point p3 = new Point(3,3 );
+//        Point p4 = new Point(3,4 );
+//        PolyLine pl1 = new PolyLine(p1,p2,p3);
+//        PolyLine pl2 = new PolyLine(p1,p2,p3);
+//        PolyLine pl3 = new PolyLine(p1,p2,p4);
+//        System.out.println(pl1==pl2);
+//        System.out.println(pl1.equals(pl2));
+//        System.out.println("-----------------");
+//        System.out.println(pl1==pl3);
+//        System.out.println(pl1.equals(pl3));
+//        //-------------------------------
+//
+//        // Задание 9.1.1 Сравнение дробей
+        Fraction f1 = new Fraction(1,2);
+        Fraction f2 = f1.clone();
+        f1.setDenum(9);
+        System.out.println(f1==f2);
+        System.out.println(f1.equals(f2));
+        System.out.println(f1);
+        System.out.println(f2);
 
     }
 
 
-    // Задание 8.3 Measurable интерфейсы. Измерение длины
-    public static double lengthPolyLines(Measurable object) {
-        return object.getLength();
-    }
-
-    // Задание 6.2 линия
-    public static void sumLengthLine(Line... line) {
-        double sum = 0;
-        for (Line value : line) {
-            sum += value.getLength();
-        }
-        if (line.length == 1) {
-            System.out.println("Длина линий: " + sum);
-        } else {
-            System.out.println("Сумма длин " + line.length + " линий: " + sum);
-        }
-    }
+//    // Задание 8.3 Measurable интерфейсы. Измерение длины
+//    public static double lengthPolyLines(Measurable object) {
+//        return object.getLength();
+//    }
+//
+//    // Задание 6.2 линия
+//    public static void sumLengthLine(Line... line) {
+//        double sum = 0;
+//        for (Line value : line) {
+//            sum += value.getLength();
+//        }
+//        if (line.length == 1) {
+//            System.out.println("Длина линий: " + sum);
+//        } else {
+//            System.out.println("Сумма длин " + line.length + " линий: " + sum);
+//        }
+//    }
 
 }
 

@@ -1,15 +1,16 @@
 package ru.courses.OOP_8;
 
 import java.util.Scanner;
+import static java.lang.Math.pow;
+import static java.lang.Integer.parseInt;
 
 public class MyPow {
 
-    public double mypow(String number, String power){
+    public static void mypow(){
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите два числа");
         String num = scanner.nextLine();
-        String pow = scanner.nextLine();
-        double res;
-        return res = Math.pow(Integer.parseInt(num), Integer.parseInt((pow)));
-
+        String powwer = scanner.nextLine();
+        System.out.println((int) pow(parseInt(num), parseInt((powwer))));
     }
 }
