@@ -1,15 +1,17 @@
 package ru.courses.main;
+
 import ru.courses.OOP_8.Measurable;
 import ru.courses.OOP_9.Fraction;
-import ru.courses.OOP_9.Line;
+//import ru.courses.OOP_9.Line;
 import ru.courses.OOP_9.Point;
 import ru.courses.OOP_8.Student.Student;
 import ru.courses.OOP_9.PolyLine;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws NumberFormatException {
         // Задание 6.1 точка
 //        Point p1 = new Point(1, 3);
 //        Point p2 = new Point(1, 3);
@@ -334,14 +336,37 @@ public class Main {
 //        //-------------------------------
 //
 //        // Задание 9.1.1 Сравнение дробей
-        Fraction f1 = new Fraction(1,2);
-        Fraction f2 = f1.clone();
-        f1.setDenum(9);
-        System.out.println(f1==f2);
-        System.out.println(f1.equals(f2));
-        System.out.println(f1);
-        System.out.println(f2);
+//        Fraction f1 = new Fraction(1,2);
+//        Fraction f2 = f1.clone();
+//        f1.setDenum(9);
+//        System.out.println(f1==f2);
+//        System.out.println(f1.equals(f2));
+//        System.out.println(f1);
+//        System.out.println(f2);
+//        //-------------------------------
+//
+//        // Задание 9.3.1 Исключения
+//        double sum = 0.0;
+//        for (String arg : args){
+//            try {
+//              sum += Double.parseDouble(arg);
+//            }catch (NumberFormatException ex){
+//                System.err.println("Некорректный аргумент: " + arg);
+//            }
+//        }
+//        System.out.println("результат: " + sum);
 
+//        //-------------------------------
+//
+//        // Задание 9.3.2 Исключения
+        double sum = 0.0;
+        for (String arg : args) {
+            if (arg.matches("((-|\\\\+)?[0-9]+(\\\\.[0-9]+)?)+"))
+            {
+                sum += Double.parseDouble(arg);
+            }
+        }
+        System.out.println("результат: " + sum);
     }
 
 
