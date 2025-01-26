@@ -26,14 +26,15 @@ public class Main {
 
             FileReader fileReader = null;
             try {
-                fileReader = new FileReader("C:\\Users\\snikolenko\\Desktop\\Курс по Java\\access.log");
+                fileReader = new FileReader(path);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
             BufferedReader reader =
                     new BufferedReader(fileReader);
             String line;
-            int lineCount = 0, maxLength = 0, minLength = Integer.MAX_VALUE, yandexBotCount = 0, googleBotCount = 0;
+            int lineCount = 0, yandexBotCount = 0, googleBotCount = 0;
+            Statistics statistics = new Statistics();
             while (true) {
                 try {
                     if ((line = reader.readLine()) == null) break;
@@ -45,29 +46,33 @@ public class Main {
                 // Созданный класс исключения
                 if (length > 1024) throw new LineTooLongException("Длина строки превышает допустимое значение");
 
-
-                //Разбивка строки на фрагментны
-                String[] arrayOfLines = line.split(" ");
-                String ipAddress = arrayOfLines[0];
-                String otherProperty = arrayOfLines[1] + ", " + arrayOfLines[2];
-                String dataTime = arrayOfLines[3] + " " + arrayOfLines[4];
-                String method = arrayOfLines[5] + " " + arrayOfLines[6];
-                String httpResponse = arrayOfLines[7] + " " + arrayOfLines[8];
-                String size = arrayOfLines[9];
-                String link = arrayOfLines[10];
-                String userAgent = "";
-                for (int i = 11; i < arrayOfLines.length; i++) {
-                    userAgent = userAgent + " " + arrayOfLines[i];
-                }
-
                 // число строк в файле
                 lineCount++;
 
+                LogEntry le = new LogEntry(line);
+//                System.out.println(line);
+//                System.out.println(le.getIpAddress());
+//                System.out.println(le.getDataTime());
+//                System.out.println(le.getMethod());
+//                System.out.println(le.getRequestPath());
+//                System.out.println(le.getResponseCode());
+//                System.out.println(le.getDataSize());
+//                System.out.println(le.getReferer());
+//                System.out.println(le.getUserAgent());
 
-                if (searchBotInLine(userAgent) != null) {
-                    if (searchBotInLine(userAgent).equals("YandexBot")) yandexBotCount++;
-                    if (searchBotInLine(userAgent).equals("Googlebot")) googleBotCount++;
+                // Считаем количество ботов yandexBot и googleBot
+                if (searchBotInLine(le.getUserAgent()) != null) {
+                    if (searchBotInLine(le.getUserAgent()).equals("YandexBot")) yandexBotCount++;
+                    if (searchBotInLine(le.getUserAgent()).equals("Googlebot")) googleBotCount++;
                 }
+
+
+                UserAgent ua = new UserAgent(le.getUserAgent());
+                System.out.println(ua.getBrowser());
+                System.out.println(ua.getOperatingSystem());
+                System.out.println("--------------");
+
+                Statistics.addEntry(le);
 
             }
 
@@ -76,71 +81,17 @@ public class Main {
             double googleBotCountPercentage = ((double) googleBotCount / lineCount) * 100;
 
             System.out.println("Число строк в файле: " + lineCount);
-            System.out.println("Googlebot: " + yandexBotPercentage);
-            System.out.println("Googlebot: " + googleBotCountPercentage);
+            System.out.println("Доля YandexBot: " + yandexBotPercentage);
+            System.out.println("Доля Googlebot: " + googleBotCountPercentage);
+            System.out.println("Общее количество трафика: " + statistics.getTotalTraffic());
+            System.out.println("Среднее количество трафика в час: " + Statistics.getTrafficRate());
 
         }
     }
+/*
+C:\Users\snikolenko\Desktop\Курс по Java\access.log
+*/
 
-
-//   C:\Users\snikolenko\Desktop\Курс по Java\access.log
-
-
-//        FileReader fileReader = null;
-//        try {
-//            fileReader = new FileReader("C:\\Users\\snikolenko\\Desktop\\Курс по Java\\access.log");
-//        } catch (FileNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-//        BufferedReader reader =
-//                new BufferedReader(fileReader);
-//        String line;
-//        int lineCount = 0, maxLength = 0, minLength = Integer.MAX_VALUE, yandexBotCount = 0, googleBotCount = 0;
-//        while (true) {
-//            try {
-//                if ((line = reader.readLine()) == null) break;
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//
-//            int length = line.length();
-//            // Созданный класс исключения
-//            if (length > 1024) throw new LineTooLongException("Длина строки превышает допустимое значение");
-//
-//            //Разбивка строки на фрагметны
-//            String[] arrayOfLines = line.split(" ");
-//            String ipAddress = arrayOfLines[0];
-//            String otherProperty = arrayOfLines[1] + ", " + arrayOfLines[2];
-//            String dataTime = arrayOfLines[3] + " " + arrayOfLines[4];
-//            String method = arrayOfLines[5] + " " + arrayOfLines[6];
-//            String httpResponse = arrayOfLines[7] + " " + arrayOfLines[8];
-//            String size = arrayOfLines[9];
-//            String link = arrayOfLines[10];
-//            String userAgent = "";
-//            for (int i = 11; i < arrayOfLines.length; i++) {
-//                userAgent = userAgent + " " + arrayOfLines[i];
-//            }
-//
-//            // число строк в файле
-//            lineCount++;
-//
-//
-//            if (searchBotInLine(userAgent) != null) {
-//                if (searchBotInLine(userAgent).equals("YandexBot")) yandexBotCount++;
-//                if (searchBotInLine(userAgent).equals("Googlebot")) googleBotCount++;
-//            }
-//
-//        }
-//
-//        // Находим долю ботов yandexBot и googleBot от общего числа запросов
-//        double yandexBotPercentage = ((double) yandexBotCount / lineCount) * 100;
-//        double googleBotCountPercentage = ((double) googleBotCount / lineCount) * 100;
-//
-//        System.out.println("Число строк в файле: " + lineCount);
-//        System.out.println("Googlebot: " + yandexBotPercentage);
-//        System.out.println("Googlebot: " + googleBotCountPercentage);
-//
-//    }
 
     public static String searchBotInLine(String userAgent) {
         String bot = null;
