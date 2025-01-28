@@ -11,20 +11,31 @@ public class UserAgent {
 
     // Находим браузер в строке
     private String defineBrowser(String userAgent){
-        String definedBrowser = null;
-        int endIndex = userAgent.indexOf(" ");
-        if (endIndex != -1) {
-            definedBrowser = userAgent.substring(1, endIndex);
+        String browser = null;
+        if (userAgent.contains("Edge")) {
+            browser = "Edge";
+        } else if (userAgent.contains("Firefox")) {
+            browser = "Firefox";
+        } else if (userAgent.contains("Chrome")) {
+            browser = "Chrome";
+        } else if (userAgent.contains("Opera")) {
+            browser = "Opera";
+        } else {
+            browser = "Other";
         }
-        return definedBrowser;
+        return browser;
     }
     // Находим ОС в строке
     private String defineOperatingSystem(String userAgent){
         String definedOperatingSystem = null;
-        int startIndex = userAgent.indexOf("(");
-        int endIndex = userAgent.indexOf(";");
-        if (startIndex != -1 && endIndex != -1 && startIndex < endIndex) {
-            definedOperatingSystem = userAgent.substring(startIndex + 1, endIndex);
+        if (userAgent.contains("Windows")) {
+            definedOperatingSystem = "Windows";
+        } else if (userAgent.contains("Mac OS X") || userAgent.contains("macintosh")) {
+            definedOperatingSystem = "Mac OS X";
+        } else if (userAgent.contains("Linux")) {
+            definedOperatingSystem = "Linux";
+        } else {
+            definedOperatingSystem = "Other";
         }
         return definedOperatingSystem;
     }

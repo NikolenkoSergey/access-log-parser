@@ -50,15 +50,15 @@ public class Main {
                 lineCount++;
 
                 LogEntry le = new LogEntry(line);
-//                System.out.println(line);
-//                System.out.println(le.getIpAddress());
-//                System.out.println(le.getDataTime());
-//                System.out.println(le.getMethod());
-//                System.out.println(le.getRequestPath());
-//                System.out.println(le.getResponseCode());
-//                System.out.println(le.getDataSize());
-//                System.out.println(le.getReferer());
-//                System.out.println(le.getUserAgent());
+                System.out.println(line);
+                System.out.println(le.getIpAddress());
+                System.out.println(le.getDataTime());
+                System.out.println(le.getMethod());
+                System.out.println(le.getRequestPath());
+                System.out.println(le.getResponseCode());
+                System.out.println(le.getDataSize());
+                System.out.println(le.getReferer());
+                System.out.println(le.getUserAgent());
 
                 // Считаем количество ботов yandexBot и googleBot
                 if (searchBotInLine(le.getUserAgent()) != null) {
@@ -69,10 +69,12 @@ public class Main {
 
                 UserAgent ua = new UserAgent(le.getUserAgent());
                 System.out.println(ua.getBrowser());
-                System.out.println(ua.getOperatingSystem());
+                System.out.println("OC: "+ua.getOperatingSystem());
                 System.out.println("--------------");
 
                 Statistics.addEntry(le);
+
+
 
             }
 
@@ -85,6 +87,10 @@ public class Main {
             System.out.println("Доля Googlebot: " + googleBotCountPercentage);
             System.out.println("Общее количество трафика: " + statistics.getTotalTraffic());
             System.out.println("Среднее количество трафика в час: " + Statistics.getTrafficRate());
+            System.out.println("Страницы: " + Statistics.getPages());
+            System.out.println("ОС: " + Statistics.getOperatingSystem());
+            System.out.println("Для ОС: " + Statistics.calculateOsShares());
+            System.out.println("Браузер: " + Statistics.getBrowser());
 
         }
     }
