@@ -9,6 +9,7 @@ public class Statistics {
     private static LocalDateTime minTime;
     private static LocalDateTime maxTime;
     private static HashSet<String> pages;
+    private static HashSet<String> nonExistingPages;
     private static HashMap<String, Integer> operatingSystem;
     private static HashMap<String, Integer> browser;
 
@@ -17,6 +18,7 @@ public class Statistics {
         minTime = LocalDateTime.now();
         maxTime = LocalDateTime.now();
         pages = new HashSet<>();
+        nonExistingPages = new HashSet<>();
         operatingSystem = new HashMap<>();
         browser = new HashMap<>();
     }
@@ -29,24 +31,30 @@ public class Statistics {
         //Все страницы
         if (logEntry.getResponseCode() == 200) {
             if (logEntry.getRequestPath().indexOf("?") != -1)
-            pages.add(logEntry.getRequestPath().substring(0, logEntry.getRequestPath().indexOf("?")));
+                pages.add(logEntry.getRequestPath().substring(0, logEntry.getRequestPath().indexOf("?")));
+
+        }
+
+        //Не существующие страницы
+        if (logEntry.getResponseCode() == 404) {
+            if (logEntry.getRequestPath().indexOf("?") != -1)
+                nonExistingPages.add(logEntry.getRequestPath().substring(0, logEntry.getRequestPath().indexOf("?")));
 
         }
 
         //HashMap c ОС + количество
         UserAgent ua = new UserAgent(logEntry.getUserAgent());
-        if (operatingSystem.containsKey(ua.getOperatingSystem())){
+        if (operatingSystem.containsKey(ua.getOperatingSystem())) {
             operatingSystem.merge(ua.getOperatingSystem(), 1, Integer::sum);
         } else {
             operatingSystem.put(ua.getOperatingSystem(), 1);
         }
 
         //HashMap c баузер + количество
-        UserAgent ua1 = new UserAgent(logEntry.getUserAgent());
-        if (browser.containsKey(ua1.getBrowser())){
-            browser.merge(ua1.getBrowser(), 1, Integer::sum);
+        if (browser.containsKey(ua.getBrowser())) {
+            browser.merge(ua.getBrowser(), 1, Integer::sum);
         } else {
-            browser.put(ua1.getBrowser(), 1);
+            browser.put(ua.getBrowser(), 1);
         }
 
         //min max Time
@@ -59,22 +67,31 @@ public class Statistics {
             maxTime = time;
         }
     }
-    //Доля ОС
-    public static HashMap<String, Double> calculateOsShares(){
-        int osCount =0;
-        HashMap<String, Double> osShares = new HashMap<>();
-        //Общее количество ОС
-           for (Integer value : operatingSystem.values()){
-               osCount+= value;
-           }
-           //Доля ОС
-           for ( Map.Entry<String, Integer> entry : operatingSystem.entrySet()){
-               double share = (double) entry.getValue() / osCount;
-               osShares.put(entry.getKey(), share);
-           }
-        return osShares;
+
+    //Доля браузеров
+    public static HashMap<String, Double> calculateBrowserShares() {
+        return calculateShares(browser);
     }
 
+    //Доля ОС
+    public static HashMap<String, Double> calculateOsShares() {
+        return calculateShares(operatingSystem);
+    }
+
+    private static HashMap<String, Double> calculateShares(HashMap<String, Integer> map){
+        int count = 0;
+        HashMap<String, Double> shares = new HashMap<>();
+        //Общее количество
+        for (Integer value : map.values()) {
+            count += value;
+        }
+        //Доля
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            double share = (double) entry.getValue() / count;
+            shares.put(entry.getKey(), share);
+        }
+        return shares;
+    }
 
     //Среднее количество трафика в час
     public static double getTrafficRate() {
@@ -102,6 +119,10 @@ public class Statistics {
 
     public static HashSet<String> getPages() {
         return pages;
+    }
+
+    public static HashSet<String> getNonExistingPages() {
+        return nonExistingPages;
     }
 
     public static HashMap<String, Integer> getOperatingSystem() {
