@@ -1,5 +1,6 @@
 package ru.courses.main;
 
+import ru.courses.OOP_6.Line;
 import ru.courses.OOP_8.Measurable;
 import ru.courses.OOP_9.Fraction;
 //import ru.courses.OOP_9.Line;
@@ -7,7 +8,9 @@ import ru.courses.OOP_9.Point;
 import ru.courses.OOP_8.Student.Student;
 import ru.courses.OOP_9.PolyLine;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -359,14 +362,75 @@ public class Main {
 //        //-------------------------------
 //
 //        // Задание 9.3.2 Исключения
-        double sum = 0.0;
-        for (String arg : args) {
-            if (arg.matches("((-|\\\\+)?[0-9]+(\\\\.[0-9]+)?)+"))
-            {
-                sum += Double.parseDouble(arg);
-            }
+//        double sum = 0.0;
+//        for (String arg : args) {
+//            if (arg.matches("((-|\\\\+)?[0-9]+(\\\\.[0-9]+)?)+"))
+//            {
+//                sum += Double.parseDouble(arg);
+//            }
+//        }
+//        System.out.println("результат: " + sum);
+//        //-------------------------------
+//
+//        // Задание 10.1.1 Попарные перестановки
+//        int n = 10;
+//        ArrayList<Integer> list = new ArrayList<>();
+//        for (int i = 1; i < n ; i++) {
+//            list.add(i);
+//        }
+//        System.out.println(list);
+//        System.out.println();
+//        for (int i = 0; i < list.size(); i+=2) {
+//            if (i == list.size()-1) {
+//                break;
+//            }
+//            int j = list.get(i);
+//            list.set(i, list.get(i+1));
+//            list.set(i+1, j);
+//        }
+//        System.out.println(list);
+//        //-------------------------------
+//
+//        // Задание 10.1.2 Замена ArrayList на массив
+
+//        int[] intArray = new int[]{3, 2, 5, 4};
+//        for (int i = 0; i < intArray.length -1; i++) {
+//            if (intArray[i] > intArray[i+1]) {
+//                int temp = intArray[i];
+//                intArray[i] = intArray[i + 1];
+//                intArray[i + 1] = temp;
+//            }
+//        }
+//        System.out.println(Arrays.toString(intArray));
+//        //-------------------------------
+//
+//        // Задание 10.1.3 Замена массива на ArrayList
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        System.out.println(list);
+
+        int n = list.size()-1;
+        for (int i = 0; i < list.size() / 2; i++) {
+            int temt = list.get(i);
+            list.set(i, list.get(n-i));
+            list.set(n-i, temt);
+
         }
-        System.out.println("результат: " + sum);
+        System.out.println(list);
+
+
+    }
+    public static void reverse(int[] intArray) {
+        int n = intArray.length - 1;
+        for (int i = 0; i < intArray.length / 2; i++) {
+            int temp = intArray[i];
+            intArray[i] = intArray[n - i];
+            intArray[n - i] = temp;
+        }
     }
 
 
