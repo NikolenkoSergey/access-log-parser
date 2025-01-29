@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) throws NumberFormatException {
@@ -405,34 +407,39 @@ public class Main {
 //        //-------------------------------
 //
 //        // Задание 10.1.3 Замена массива на ArrayList
-        ArrayList<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.add(4);
-        list.add(5);
-        System.out.println(list);
-
-        int n = list.size()-1;
-        for (int i = 0; i < list.size() / 2; i++) {
-            int temt = list.get(i);
-            list.set(i, list.get(n-i));
-            list.set(n-i, temt);
-
-        }
-        System.out.println(list);
-
-
+//        ArrayList<Integer> list = new ArrayList<>();
+//        list.add(1);
+//        list.add(2);
+//        list.add(3);
+//        list.add(4);
+//        list.add(5);
+//        System.out.println(list);
+//
+//        int n = list.size()-1;
+//        for (int i = 0; i < list.size() / 2; i++) {
+//            int temt = list.get(i);
+//            list.set(i, list.get(n-i));
+//            list.set(n-i, temt);
+//
+//        }
+//        System.out.println(list);
+//        //-------------------------------
+//
+//        // Задание 10.2.1 Преобразование потока строк в строку
+//        ArrayList<String> list = new ArrayList<>(Arrays.asList("sdfsd","sdfsd1","sdfsd2" ));
+//        Stream<String> stream = list.stream();
+//        System.out.println(getStringFromStream(stream));
+//        //-------------------------------
+//
+//        // Задание 10.2.2 Замена for на forEach
+        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(3,4,5,23,4,34,2,34,99));
+        list.forEach(i -> System.out.println(i));
     }
-    public static void reverse(int[] intArray) {
-        int n = intArray.length - 1;
-        for (int i = 0; i < intArray.length / 2; i++) {
-            int temp = intArray[i];
-            intArray[i] = intArray[n - i];
-            intArray[n - i] = temp;
-        }
-    }
-
+    //        // Задание 10.2.1 Преобразование потока строк в строку
+//    public static String getStringFromStream(Stream stringStream) {
+//        String resultString = (String) stringStream.collect(Collectors.joining(" "));;
+//        return  resultString;
+//    }
 
 //    // Задание 8.3 Measurable интерфейсы. Измерение длины
 //    public static double lengthPolyLines(Measurable object) {
