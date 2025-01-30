@@ -74,6 +74,7 @@ public class Main {
 
 
 
+
             }
 
             // Находим долю ботов yandexBot и googleBot от общего числа запросов
@@ -90,6 +91,11 @@ public class Main {
             System.out.println("ОС: " + Statistics.getOperatingSystem());
             System.out.println("Доля ОС: " + Statistics.calculateOsShares());
             System.out.println("Доля браузеров: " + Statistics.calculateBrowserShares());
+            System.out.println("Количество ботов : " + Statistics.getBotCount());
+            System.out.println("Среднее количество посещение  : " + Statistics.getAverageVisits());
+            System.out.println("Среднее количество ошибочных запросов  : " + Statistics.getAverageErrorResponse());
+            System.out.println("Количество пользователей  : " + Statistics.getUsers().size());
+            System.out.println("Средняя посещаемость одним пользователем  : " + Statistics.getAverageVisitsPerUser());
 
         }
     }
