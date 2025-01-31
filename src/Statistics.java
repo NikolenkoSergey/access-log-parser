@@ -1,8 +1,6 @@
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 public class Statistics {
     private static Long totalTraffic;
@@ -16,6 +14,10 @@ public class Statistics {
     private static int errorResponseCount;
     private static int totalVisits;
     private static HashSet<String> users;
+    private static HashSet<String> referringDomains;
+    private static HashMap<LocalDateTime, Integer> visitsPerSecond;
+    private static HashMap<String, Integer> userVisitsCounter;
+    private static  Integer maxUserVisits;
 
     public Statistics() {
         totalTraffic = 0L;
@@ -28,10 +30,15 @@ public class Statistics {
         botCount = 0;
         errorResponseCount = 0;
         users = new HashSet<>();
+        visitsPerSecond = new HashMap<>();
+        referringDomains = new HashSet<>();
+        userVisitsCounter = new HashMap<>();
+        maxUserVisits =0;
     }
 
 
     public static void addEntry(LogEntry logEntry) {
+        UserAgent userAgent = new UserAgent(logEntry.getUserAgent());
         //Весь трафик
         totalTraffic += logEntry.getDataSize();
 
@@ -49,51 +56,54 @@ public class Statistics {
 
         }
 
-        //HashMap c ОС + количество
-        UserAgent ua = new UserAgent(logEntry.getUserAgent());
-        if (operatingSystem.containsKey(ua.getOperatingSystem())) {
-            operatingSystem.merge(ua.getOperatingSystem(), 1, Integer::sum);
-        } else {
-            operatingSystem.put(ua.getOperatingSystem(), 1);
-        }
-
-        //HashMap c баузер + количество
-        if (browser.containsKey(ua.getBrowser())) {
-            browser.merge(ua.getBrowser(), 1, Integer::sum);
-        } else {
-            browser.put(ua.getBrowser(), 1);
-        }
-
-        //min max Time
-        LocalDateTime time = logEntry.getDataTime();
-        if (minTime.isAfter(time)) {
-            minTime = time;
-        }
-
-        if (maxTime.isBefore(time)) {
-            maxTime = time;
-        }
-
-        //количество ботов
-        if (ua.isBot()) botCount++;
-
-        //количество ошибочных запросов
-        if (logEntry.getResponseCode() >= 400 && logEntry.getResponseCode() <= 599) errorResponseCount++;
+        referringDomains(logEntry);
+        peakTraffic(logEntry, userAgent);
+        errorResponseCount(logEntry);
+        minMaxTime(logEntry);
 
         //Все визиты + Уникальные пользователи
-        if (!ua.isBot()) {
+        if (!userAgent.isBot()) {
             totalVisits++;
             users.add(logEntry.getIpAddress());
         }
+
+        //количество ботов
+        if (userAgent.isBot()) botCount++;
+
+        browserCounter(userAgent);
+        operatingSystemCounter(userAgent);
+        MaxUserVisitsCalculator(logEntry, userAgent);
+
+
     }
 
-    // Средняя посещаемость одним пользователем
-    public static double getAverageVisitsPerUser(){
-        return (double) totalVisits / users.size();
+    //========================================================
+
+    //Максимальная посещаемость одним пользователем
+    private static void MaxUserVisitsCalculator(LogEntry logEntry, UserAgent userAgent) {
+        if (!userAgent.isBot()) {
+            if (userVisitsCounter.containsKey(logEntry.getIpAddress())) {
+                userVisitsCounter.merge(logEntry.getIpAddress(), 1, Integer::sum);
+            } else userVisitsCounter.put(logEntry.getIpAddress(), 1);
+        }
+        // Получаем коллекцию значений
+        Collection<Integer> values = userVisitsCounter.values();
+
+        // Находим максимальное значение
+        maxUserVisits = Collections.max(values);
     }
-    //Доля браузеров
-    public static HashMap<String, Double> calculateBrowserShares() {
-        return calculateShares(browser);
+
+    public static int getMaxUserVisits() {
+        return maxUserVisits;
+    }
+
+    //HashMap ОС + количество
+    private static void operatingSystemCounter(UserAgent userAgent) {
+        if (operatingSystem.containsKey(userAgent.getOperatingSystem())) {
+            operatingSystem.merge(userAgent.getOperatingSystem(), 1, Integer::sum);
+        } else {
+            operatingSystem.put(userAgent.getOperatingSystem(), 1);
+        }
     }
 
     //Доля ОС
@@ -116,17 +126,24 @@ public class Statistics {
         return shares;
     }
 
-    //Среднее количество трафика в час
-    public static double getTrafficRate() {
-        if ( hoursBetween() == 0) {
-            return 0.0;
+
+    //HashMap баузер + количество
+    private static void browserCounter(UserAgent userAgent) {
+        if (browser.containsKey(userAgent.getBrowser())) {
+            browser.merge(userAgent.getBrowser(), 1, Integer::sum);
+        } else {
+            browser.put(userAgent.getBrowser(), 1);
         }
-        return (double) totalTraffic / hoursBetween();
+    }
+
+    //Доля браузеров
+    public static HashMap<String, Double> calculateBrowserShares() {
+        return calculateShares(browser);
     }
 
     //Среднее количество посещений в час
     public static double getAverageVisits() {
-        if ( hoursBetween() == 0) {
+        if (hoursBetween() == 0) {
             return 0.0;
         }
 
@@ -139,12 +156,19 @@ public class Statistics {
         return (double) (countBrowser - botCount) / hoursBetween();
     }
 
-    //Среднее количество ошибочных запросов в час
-    public static double getAverageErrorResponse() {
-        if ( hoursBetween() == 0) {
-            return 0.0;
+    public static HashMap<String, Integer> getBrowser() {
+        return browser;
+    }
+
+    //min max Time
+    private static void minMaxTime(LogEntry logEntry) {
+        LocalDateTime time = logEntry.getDataTime();
+        if (minTime.isAfter(time)) {
+            minTime = time;
         }
-        return (double) errorResponseCount / hoursBetween();
+        if (maxTime.isBefore(time)) {
+            maxTime = time;
+        }
     }
 
     //Все время в часах
@@ -158,8 +182,13 @@ public class Statistics {
         return hoursBetween;
     }
 
-    public Long getTotalTraffic() {
-        return totalTraffic;
+    public static int getBotCount() {
+        return botCount;
+    }
+
+    // Средняя посещаемость одним пользователем
+    public static double getAverageVisitsPerUser() {
+        return (double) totalVisits / users.size();
     }
 
     public LocalDateTime getMinTime() {
@@ -168,6 +197,77 @@ public class Statistics {
 
     public LocalDateTime getMaxTime() {
         return maxTime;
+    }
+
+    //количество ошибочных запросов
+    private static void errorResponseCount(LogEntry logEntry) {
+        if (logEntry.getResponseCode() >= 400 && logEntry.getResponseCode() <= 599)
+            errorResponseCount++;
+    }
+
+    public static int getErrorResponseCount() {
+        return errorResponseCount;
+    }
+
+    //Количество запросов в каждую секунду
+    private static void peakTraffic(LogEntry logEntry, UserAgent userAgent) {
+        if (!userAgent.isBot()) {
+            if (visitsPerSecond.containsKey(logEntry.getDataTime())) {
+                visitsPerSecond.merge(logEntry.getDataTime(), 1, Integer::sum);
+            } else {
+                visitsPerSecond.put(logEntry.getDataTime(), 1);
+            }
+        }
+    }
+
+    //Максимальное количество запросов в конкретную секунду
+    public static int getPeakTraffic() {
+        int peakTraffic = 0;
+        for (Integer value : visitsPerSecond.values()) {
+            if (value > peakTraffic) peakTraffic = value;
+        }
+        return peakTraffic;
+    }
+
+    //список доменных имен
+    private static void referringDomains(LogEntry logEntry) {
+        String domains;
+        int start, end;
+        start = logEntry.getReferer().indexOf("/") + 2;
+        end = logEntry.getReferer().indexOf("/", start + 5);
+        if (logEntry.getReferer().contains("//")) {
+            domains = logEntry.getReferer().substring(start, end);
+            if (domains.contains("www")) {
+                domains = domains.substring(4);
+                referringDomains.add(domains);
+            } else referringDomains.add(domains);
+
+        }
+
+    }
+
+    public static HashSet<String> getReferringDomains() {
+        return referringDomains;
+    }
+
+    //Среднее количество трафика в час
+    public static double getTrafficRate() {
+        if (hoursBetween() == 0) {
+            return 0.0;
+        }
+        return (double) totalTraffic / hoursBetween();
+    }
+
+    //Среднее количество ошибочных запросов в час
+    public static double getAverageErrorResponse() {
+        if (hoursBetween() == 0) {
+            return 0.0;
+        }
+        return (double) errorResponseCount / hoursBetween();
+    }
+
+    public Long getTotalTraffic() {
+        return totalTraffic;
     }
 
     public static HashSet<String> getPages() {
@@ -182,19 +282,12 @@ public class Statistics {
         return operatingSystem;
     }
 
-    public static HashMap<String, Integer> getBrowser() {
-        return browser;
-    }
-
-    public static int getBotCount() {
-        return botCount;
-    }
-
-    public static int getErrorResponseCount() {
-        return errorResponseCount;
-    }
 
     public static HashSet<String> getUsers() {
         return users;
+    }
+
+    public static HashMap<LocalDateTime, Integer> getVisitsPerSecond() {
+        return visitsPerSecond;
     }
 }

@@ -50,14 +50,6 @@ public class Main {
 
                 LogEntry le = new LogEntry(line);
 //                System.out.println(line);
-//                System.out.println(le.getIpAddress());
-//                System.out.println(le.getDataTime());
-//                System.out.println(le.getMethod());
-//                System.out.println(le.getRequestPath());
-//                System.out.println(le.getResponseCode());
-//                System.out.println(le.getDataSize());
-//                System.out.println(le.getReferer());
-//                System.out.println(le.getUserAgent());
 
                 // Считаем количество ботов yandexBot и googleBot
                 if (searchBotInLine(le.getUserAgent()) != null) {
@@ -65,15 +57,7 @@ public class Main {
                     if (searchBotInLine(le.getUserAgent()).equals("Googlebot")) googleBotCount++;
                 }
 
-//                UserAgent ua = new UserAgent(le.getUserAgent());
-//                System.out.println(ua.getBrowser());
-//                System.out.println("OC: "+ua.getOperatingSystem());
-//                System.out.println("--------------");
-
                 Statistics.addEntry(le);
-
-
-
 
             }
 
@@ -91,18 +75,21 @@ public class Main {
             System.out.println("ОС: " + Statistics.getOperatingSystem());
             System.out.println("Доля ОС: " + Statistics.calculateOsShares());
             System.out.println("Доля браузеров: " + Statistics.calculateBrowserShares());
-            System.out.println("Количество ботов : " + Statistics.getBotCount());
-            System.out.println("Среднее количество посещение  : " + Statistics.getAverageVisits());
-            System.out.println("Среднее количество ошибочных запросов  : " + Statistics.getAverageErrorResponse());
-            System.out.println("Количество пользователей  : " + Statistics.getUsers().size());
-            System.out.println("Средняя посещаемость одним пользователем  : " + Statistics.getAverageVisitsPerUser());
+            System.out.println("Количество ботов: " + Statistics.getBotCount());
+            System.out.println("Среднее количество посещение: " + Statistics.getAverageVisits());
+            System.out.println("Среднее количество ошибочных запросов: " + Statistics.getAverageErrorResponse());
+            System.out.println("Количество пользователей: " + Statistics.getUsers().size());
+            System.out.println("Средняя посещаемость одним пользователем: " + Statistics.getAverageVisitsPerUser());
+            System.out.println("Посещений в секунду: " + Statistics.getPeakTraffic());
+            System.out.println("Список сайтов : " + Statistics.getReferringDomains());
+            System.out.println("Максимальное посещение одним пользователем : " + Statistics.getMaxUserVisits());
+
 
         }
     }
 /*
 C:\Users\snikolenko\Desktop\Курс по Java\access.log
 */
-
 
     public static String searchBotInLine(String userAgent) {
         String bot = null;
