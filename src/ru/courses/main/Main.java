@@ -1,22 +1,12 @@
 package ru.courses.main;
 
-import ru.courses.OOP_6.Line;
-import ru.courses.OOP_8.Measurable;
-import ru.courses.OOP_9.Fraction;
 //import ru.courses.OOP_9.Line;
-import ru.courses.OOP_9.Point;
-import ru.courses.OOP_8.Student.Student;
-import ru.courses.OOP_9.PolyLine;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.lang.reflect.Field;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws NumberFormatException {
+    public static void main(String[] args) throws NumberFormatException, IllegalAccessException {
         // Задание 6.1 точка
 //        Point p1 = new Point(1, 3);
 //        Point p2 = new Point(1, 3);
@@ -432,9 +422,80 @@ public class Main {
 //        //-------------------------------
 //
 //        // Задание 10.2.2 Замена for на forEach
-        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(3,4,5,23,4,34,2,34,99));
-        list.forEach(i -> System.out.println(i));
+//        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(3,4,5,23,4,34,2,34,99));
+//        list.forEach(i -> System.out.println(i));
+//        //-------------------------------
+//
+//        // Задание 10.3.1 Обнуление полей
+//        Cat cat = new Cat("Vasya", 10, new ArrayList<>(Arrays.asList("Anton", "Oleg", "Igor")));
+//        Dog dog = new Dog("Vasya1", 101, new ArrayList<>(Arrays.asList("Anton1", "Oleg1", "Igor1")));
+//
+//        nullObject(cat);
+//        nullObject(dog);
+//        System.out.println(cat);
+//        System.out.println(dog);
+
     }
+
+    //        // Задание 10.3.1 Обнуление полей
+//    public static void nullObject(Object obj) throws IllegalAccessException {
+//        Class<?> anyClass = obj.getClass();
+//        Field[] fields = anyClass.getDeclaredFields();
+//        for (Field field : fields) {
+//            try {
+//                if (!field.getType().isPrimitive()) {
+//                    field.set(obj, null);
+//                }
+//            } catch (IllegalArgumentException ex) {
+//                System.out.println("Ошибка при попытке обнуления поля: " + field.getName());
+//            }
+//        }
+//    }
+
+//    public static class Dog {
+//        private static String breed = "Persian"; // порода
+//        public String name;
+//        private int age;
+//        private List friendsName = new ArrayList<>();
+//
+//        public Dog(String name, int age, List friendsName) {
+//            this.name = name;
+//            this.age = age;
+//            this.friendsName = friendsName;
+//        }
+//
+//        @Override
+//        public String toString() {
+//            return "Cat{" +
+//                    "name='" + name + '\'' +
+//                    ", age=" + age +
+//                    ", friendsName=" + friendsName +
+//                    '}';
+//        }
+//    }
+
+    //        // Задание 10.3.1 Обнуление полей
+//    public static class Cat {
+//        private static String breed = "Persian"; // порода
+//        public String name;
+//        private int age;
+//        private List friendsName = new ArrayList<>();
+//
+//        public Cat(String name, int age, List friendsName) {
+//            this.name = name;
+//            this.age = age;
+//            this.friendsName = friendsName;
+//        }
+//
+//        @Override
+//        public String toString() {
+//            return "Cat{" +
+//                    "name='" + name + '\'' +
+//                    ", age=" + age +
+//                    ", friendsName=" + friendsName +
+//                    '}';
+//        }
+//    }
     //        // Задание 10.2.1 Преобразование потока строк в строку
 //    public static String getStringFromStream(Stream stringStream) {
 //        String resultString = (String) stringStream.collect(Collectors.joining(" "));;
